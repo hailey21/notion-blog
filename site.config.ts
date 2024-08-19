@@ -50,7 +50,7 @@ export default siteConfig({
 
   // whether to use the default notion navigation style or a custom one with links to
   // important pages. To use `navigationLinks`, set `navigationStyle` to `custom`.
-  navigationStyle: 'default'
+  navigationStyle: 'default',
   // navigationStyle: 'custom',
   // navigationLinks: [
   //   {
@@ -62,4 +62,14 @@ export default siteConfig({
   //     pageId: '6a29ebcb935a4f0689fe661ab5f3b8d1'
   //   }
   // ]
+
+  giscus: {
+    repo: 'daeho-ro/notion-blog',
+    repoId: 'R_kgDOMk39yQ',
+    category: 'Comments',
+    categoryId: 'DIC_kwDOMk39yc4ChwCQ',
+    mapping: 'pathname',
+    theme: 'light_tritanopia',
+    darkTheme: 'dark_dimmed'
+  }
 })

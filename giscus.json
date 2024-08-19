@@ -1,0 +1,8 @@
+{
+  "origins": [
+    "https://blog.lamanus.kr"
+  ],
+  "originsRegex": [
+    "http://localhost:[0-9]+"
+  ]
+}

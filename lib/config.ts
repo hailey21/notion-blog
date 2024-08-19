@@ -10,6 +10,7 @@ import { type PostHogConfig } from 'posthog-js'
 import { getEnv, getSiteConfig } from './get-config-value'
 import { type NavigationLink } from './site-config'
 import {
+  type GiscusInfo,
   type NavigationStyle,
   type PageUrlOverridesInverseMap,
   type PageUrlOverridesMap,
@@ -111,6 +112,8 @@ export const navigationLinks: Array<NavigationLink | null> = getSiteConfig(
 
 // Optional site search
 export const isSearchEnabled: boolean = getSiteConfig('isSearchEnabled', true)
+
+export const giscus: GiscusInfo = getSiteConfig('giscus')
 
 // ----------------------------------------------------------------------------
 
