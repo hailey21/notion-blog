@@ -19,18 +19,12 @@ import { useRouter } from 'next/router'
 import posthog from 'posthog-js'
 import * as React from 'react'
 
-import { bootstrap } from '@/lib/bootstrap-client'
 import {
   fathomConfig,
   fathomId,
-  isServer,
   posthogConfig,
   posthogId
 } from '@/lib/config'
-
-if (!isServer) {
-  bootstrap()
-}
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
