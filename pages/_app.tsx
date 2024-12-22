@@ -14,6 +14,7 @@ import 'styles/notion.css'
 import 'styles/prism-theme.css'
 
 import type { AppProps } from 'next/app'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import * as React from 'react'
 
@@ -21,6 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <GoogleAnalytics trackPageViews />
+      <SpeedInsights />
       <Component {...pageProps} />
     </>
   )
