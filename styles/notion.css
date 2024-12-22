@@ -57,6 +57,7 @@
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   grid-gap: 6vmin;
   gap: 6vmin;
+  row-gap: 3vmin;
 }
 
 .notion-gallery-grid .notion-page-icon-inline {
@@ -123,8 +124,8 @@
   padding: 0.2em 0.75em;
   line-height: 1.5;
   font-style: italic;
-  font-size: 1.2em;
   border-left: 4px solid #67bdfc;
+  font-size: 1em;
 }
 
 .notion-h1,
