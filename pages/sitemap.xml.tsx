@@ -1,4 +1,5 @@
 import type { GetServerSideProps } from 'next'
+import type { ExtendedRecordMap } from 'notion-types'
 
 import type { SiteMap } from '@/lib/types'
 import { host } from '@/lib/config'
@@ -31,28 +32,57 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   }
 }
 
-const createSitemap = (siteMap: SiteMap) =>
-  `<?xml version="1.0" encoding="UTF-8"?>
+const getCreatedDate = (recordMap: ExtendedRecordMap): string => {
+  let maxTime = 0
+  const blocks = Object.values(recordMap.block)
+  
+  for (const block of blocks) {
+    const time = block.value.created_time
+    if (time > maxTime) {
+      maxTime = time
+    }
+  }
+
+  return new Date(maxTime).toISOString()
+}
+
+const getSitemapEntries = (siteMap: SiteMap, now: string) => {
+  return Object.keys(siteMap.canonicalPageMap)
+    .map(path => {
+      const pageId = siteMap.canonicalPageMap[path]
+      const recordMap = siteMap.pageMap[pageId]
+      if (!recordMap) return null
+
+      return {
+        path,
+        lastmod: getCreatedDate(recordMap) || now
+      }
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.lastmod.localeCompare(a.lastmod))
+}
+
+const createSitemap = (siteMap: SiteMap) => {
+  const now = new Date().toISOString()
+  const entries = getSitemapEntries(siteMap, now)
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
       <loc>${host}</loc>
+      <lastmod>${now}</lastmod>
     </url>
-
-    <url>
-      <loc>${host}/</loc>
-    </url>
-
-    ${Object.keys(siteMap.canonicalPageMap)
-      .map((canonicalPagePath) =>
-        `
-          <url>
-            <loc>${host}/${canonicalPagePath}</loc>
-          </url>
-        `.trim()
-      )
+    ${entries
+      .map(entry => `
+        <url>
+          <loc>${host}/${entry.path}</loc>
+          <lastmod>${entry.lastmod}</lastmod>
+        </url>
+      `.trim())
       .join('')}
   </urlset>
 `
+}
 
 export default function noop() {
   return null
