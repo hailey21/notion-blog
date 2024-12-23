@@ -46,7 +46,13 @@
 .notion-header .notion-nav-header {
   max-width: 1100px;
   margin: 0 auto;
-  overflow-x: auto;
+  overflow-x: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.notion-header .notion-nav-header::-webkit-scrollbar {
+  display: none;
 }
 
 .notion-nav-header-rhs {

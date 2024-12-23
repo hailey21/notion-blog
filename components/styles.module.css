@@ -223,3 +223,20 @@
   width: 100%;
   margin-top: 2rem;
 }
+
+.progressContainer {
+  position: fixed;
+  top: var(--notion-header-height);
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--fg-color-0);
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.progressBar {
+  height: 100%;
+  background-color: #ffd700;
+  transition: width 100ms ease-out;
+}

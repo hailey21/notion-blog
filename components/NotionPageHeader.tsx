@@ -10,6 +10,62 @@ import { useDarkMode } from '@/lib/use-dark-mode'
 
 import styles from './styles.module.css'
 
+function ScrollProgress() {
+  const [progress, setProgress] = React.useState(0)
+  const [isVisible, setIsVisible] = React.useState(false)
+
+  React.useEffect(() => {
+    const main = document.querySelector('main')
+    const giscus = document.querySelector('.giscus')
+    if (!main) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting)
+      },
+      { threshold: 0 }
+    )
+
+    observer.observe(main)
+
+    const handleScroll = () => {
+      if (!isVisible || !main) return
+
+      const mainRect = main.getBoundingClientRect()
+      const mainTop = mainRect.top
+      const mainHeight = mainRect.height - (giscus?.clientHeight || 0)
+      const windowHeight = window.innerHeight
+
+      let progress = 0
+      if (mainTop <= 0) {
+        const remainingScroll = mainHeight + mainTop - windowHeight
+        const totalScroll = mainHeight - windowHeight
+        progress = ((totalScroll - remainingScroll) / totalScroll) * 100
+        progress = Math.min(Math.max(progress, 0), 100)
+      }
+      
+      setProgress(progress)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    handleScroll()
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [isVisible])
+
+  return (
+    <div className={cs(styles.progressContainer)}>
+      <div 
+        className={cs(styles.progressBar)}
+        style={{ width: `${progress}%` }} 
+      />
+    </div>
+  )
+}
+
 function ToggleThemeButton() {
   const [hasMounted, setHasMounted] = React.useState(false)
   const { isDarkMode, toggleDarkMode } = useDarkMode()
@@ -40,7 +96,12 @@ export function NotionPageHeader({
   const { components, mapPageUrl } = useNotionContext()
 
   if (navigationStyle === 'default') {
-    return <Header block={block} />
+    return (
+      <>
+        <Header block={block} />
+        <ScrollProgress />
+      </>
+    )
   }
 
   return (
@@ -84,6 +145,7 @@ export function NotionPageHeader({
           {isSearchEnabled && <Search block={block} title={null} />}
         </div>
       </div>
+      <ScrollProgress />
     </header>
   )
 }
