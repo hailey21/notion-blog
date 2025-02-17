@@ -2,23 +2,23 @@ import { siteConfig } from './lib/site-config'
 
 export default siteConfig({
   // the site's root Notion page (required)
-  rootNotionPageId: '031862645dd34e6e94d8169685bae7b4',
+  rootNotionPageId: '19dab22fb59e807390aec5077969c465',
 
   // if you want to restrict pages to a single notion workspace (optional)
   // (this should be a Notion ID; see the docs for how to extract this)
   rootNotionSpaceId: null,
 
   // basic site info (required)
-  name: 'Lamanus\' Blog',
-  domain: 'blog.lamanus.kr',
-  author: 'Lamanus',
+  name: 'Hailey\' Blog',
+  domain: 'blog.hailey21.kr',
+  author: 'Hailey',
 
   // open graph metadata (optional)
-  description: 'Lamanus\' Blog',
+  description: 'Hailey\' Blog',
 
   // social usernames (optional)
   // twitter: '#',
-  github: 'daeho-ro',
+  github: 'hailey21',
   // linkedin: '#',
   // mastodon: '#', // optional mastodon profile URL, provides link verification
   // newsletter: '#', // optional newsletter URL
@@ -64,10 +64,10 @@ export default siteConfig({
   // ]
 
   giscus: {
-    repo: 'daeho-ro/notion-blog',
-    repoId: 'R_kgDOMk39yQ',
+    repo: 'hailey21/notion-blog',
+    repoId: 'R_kgDON6rvZg',
     category: 'Comments',
-    categoryId: 'DIC_kwDOMk39yc4ChwCQ',
+    categoryId: 'DIC_kwDON6rvZs4CnBzb',
     mapping: 'pathname',
     theme: 'light_tritanopia',
     darkTheme: 'dark_dimmed'
